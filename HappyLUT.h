@@ -4,6 +4,8 @@
 #include <iostream>
 #include <array>
 
+// HappyLUT:
+//  Simplifies the process of creating lookup tables that are generated at compile-time.
 namespace HappyLUT {
 // Evaluator:
 //   output_Type is the output type of the LUT's function (int, double, ect.)
