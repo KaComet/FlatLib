@@ -2,6 +2,7 @@
 #define TILESETVIEWER_FLATMATH_H
 
 #include <optional>
+#include <stdexcept>
 #include "FlatTypes.h"
 
 /*
