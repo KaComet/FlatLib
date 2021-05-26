@@ -6,7 +6,7 @@
 /*
 Name: Flat - Happy Pointer
 Date: 5/25/2021 (MM/DD/YYYY)
-Version: 1.00
+Version: 1.01
 */
 
 namespace flat {
@@ -14,6 +14,8 @@ namespace flat {
     class HappyPointer {
     public:
         HappyPointer();
+
+        HappyPointer(T);
 
         ~HappyPointer();
 
@@ -23,7 +25,9 @@ namespace flat {
 
         HappyPointer<T> &operator=(const HappyPointer<T> &other);
 
-        [[nodiscard]] T *IAcceptTheRiskOfUsingThisRawPointer() const;
+        [[nodiscard]] T *IAcceptTheRiskOfUsingThisRawPointer() const noexcept;
+
+        [[nodiscard]] bool isNull() const noexcept;
 
     private:
         T *_Ptr;
@@ -31,7 +35,13 @@ namespace flat {
 
     template<class T>
     HappyPointer<T>::HappyPointer() {
+        _Ptr = nullptr;
+    }
+
+    template<class T>
+    HappyPointer<T>::HappyPointer(T t) {
         _Ptr = new T;
+        *_Ptr = t;
     }
 
     template<class T>
@@ -53,8 +63,11 @@ namespace flat {
     template<class T>
     HappyPointer<T> &HappyPointer<T>::operator=(const HappyPointer<T> &other) {
         if (this != &other) {
-            delete _Ptr;
-            *_Ptr = *other._Ptr;
+            if (_Ptr == nullptr) {
+                _Ptr = new T(*other._Ptr);
+            } else {
+                *_Ptr = *other._Ptr;
+            }
         }
 
         return *this;
@@ -63,6 +76,11 @@ namespace flat {
     template<class T>
     [[nodiscard]] T *HappyPointer<T>::IAcceptTheRiskOfUsingThisRawPointer() const {
         return _arrayPtr;
+    }
+
+    template<class T>
+    [[nodiscard]] bool HappyPointer<T>::isNull() const noexcept {
+        return _Ptr == nullptr;
     }
 }
 
