@@ -5,15 +5,15 @@
 
 /*
 Name: Flat - Happy Array
-Date: 8/2/2020 (MM/DD/YYYY)
-Version: 1.02
+Date: 6/22/2021 (MM/DD/YYYY)
+Version: 1.03
 */
 
 namespace flat {
     template<class T>
     class HappyArray {
     public:
-        HappyArray() = delete;
+        HappyArray();
 
         explicit HappyArray(unsigned long int size);
 
@@ -33,6 +33,12 @@ namespace flat {
         T *_arrayPtr;
         std::size_t _nElements;
     };
+
+    template<class T>
+    HappyArray<T>::HappyArray() {
+        _nElements = 0;
+        _arrayPtr = nullptr;
+    }
 
     template<class T>
     HappyArray<T>::HappyArray(const unsigned long int size) {
