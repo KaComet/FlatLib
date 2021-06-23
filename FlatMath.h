@@ -3,6 +3,7 @@
 
 #include <optional>
 #include <stdexcept>
+#include <type_traits>
 #include "FlatTypes.h"
 
 /*
@@ -13,6 +14,7 @@ Version: 1.01
 
 namespace flat {
     template<class T>
+    requires std::is_integral_v<T> && std::is_arithmetic_v<T>
     T nonWrappingSubtraction(const T &a, const T &b) {
         if (b > a)
             return T(0);
