@@ -2,6 +2,7 @@
 #define TILESETVIEWER_FLATTYPES_H
 
 #include <cstdint>
+#include <string>
 
 namespace flat {
     struct IntegerCoordinate {
@@ -14,6 +15,8 @@ namespace flat {
         IntegerCoordinate operator+(const IntegerCoordinate &b) const noexcept;
 
         IntegerCoordinate &operator-=(const IntegerCoordinate &b) noexcept;
+
+        static std::string toString(IntegerCoordinate position);
 
         int_fast32_t x, y;
     };
@@ -28,6 +31,8 @@ namespace flat {
 
         [[nodiscard]] bool contains(const IntegerCoordinate &cord) const noexcept;
 
+        static std::string toString(Rectangle rect);
+
         uint_fast32_t width, height;
     };
 
@@ -39,6 +44,8 @@ namespace flat {
 
         // If the two CoordinateAndRectangle are identical, returns true.
         bool operator==(const CoordinateAndRectangle &b) const noexcept;
+
+        static std::string toString(CoordinateAndRectangle rect);
 
         int_fast32_t x, y;
         int_fast32_t width, height;

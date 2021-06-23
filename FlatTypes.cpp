@@ -27,6 +27,11 @@ flat::IntegerCoordinate &flat::IntegerCoordinate::operator-=(const IntegerCoordi
     return *this;
 }
 
+std::string flat::IntegerCoordinate::toString(flat::IntegerCoordinate position) {
+    return (std::string) ('(' + std::to_string(position.x) + ',' +
+                          std::to_string(position.y) + ')');
+}
+
 
 /*
  * Rectangle functions
@@ -47,6 +52,11 @@ bool flat::Rectangle::operator==(const Rectangle &b) const noexcept {
     return (cord.x < width) && (cord.y < height);
 }
 
+std::string flat::Rectangle::toString(Rectangle rect) {
+    return (std::string) ('[' + std::to_string(rect.width) + ',' +
+                          std::to_string(rect.height) + ']');
+}
+
 
 /*
  * CoordinateAndRectangle functions
@@ -60,7 +70,8 @@ flat::CoordinateAndRectangle::CoordinateAndRectangle(int_fast32_t x, int_fast32_
         width = 0;
 }
 
-flat::CoordinateAndRectangle::CoordinateAndRectangle(const flat::IntegerCoordinate &cord, flat::Rectangle rect) : x(cord.x),
+flat::CoordinateAndRectangle::CoordinateAndRectangle(const flat::IntegerCoordinate &cord, flat::Rectangle rect) : x(
+        cord.x),
                                                                                                                   y(cord.y),
                                                                                                                   width(rect.width),
                                                                                                                   height(rect.height) {
@@ -69,4 +80,11 @@ flat::CoordinateAndRectangle::CoordinateAndRectangle(const flat::IntegerCoordina
 
 bool flat::CoordinateAndRectangle::operator==(const CoordinateAndRectangle &b) const noexcept {
     return (x == b.x) && (y == b.y) && (width == b.width) && (height == b.height);
+}
+
+std::string flat::CoordinateAndRectangle::toString(flat::CoordinateAndRectangle rect) {
+    return (std::string) ("{[" + std::to_string(rect.width) + ',' +
+                          std::to_string(rect.height) + "](" +
+                          std::to_string(rect.x) + ',' +
+                          std::to_string(rect.y)) + ")}";
 }
