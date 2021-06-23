@@ -2,6 +2,7 @@
 #define FLAT_HAPPYARRAY_H
 
 #include <stdexcept>
+#include <type_traits>
 
 /*
 Name: Flat - Happy Array
@@ -10,7 +11,7 @@ Version: 1.03
 */
 
 namespace flat {
-    template<class T>
+    template<class T> requires std::is_default_constructible_v<T>
     class HappyArray {
     public:
         HappyArray();
@@ -34,13 +35,13 @@ namespace flat {
         std::size_t _nElements;
     };
 
-    template<class T>
+    template<class T> requires std::is_default_constructible_v<T>
     HappyArray<T>::HappyArray() {
         _nElements = 0;
         _arrayPtr = nullptr;
     }
 
-    template<class T>
+    template<class T> requires std::is_default_constructible_v<T>
     HappyArray<T>::HappyArray(const unsigned long int size) {
         _nElements = size;
         if (_nElements != 0)
@@ -49,7 +50,7 @@ namespace flat {
             _arrayPtr = nullptr;
     }
 
-    template<class T>
+    template<class T> requires std::is_default_constructible_v<T>
     HappyArray<T>::HappyArray(const HappyArray &other) {
         _nElements = other._nElements;
         _arrayPtr = new T[_nElements];
@@ -57,23 +58,23 @@ namespace flat {
             _arrayPtr[i] = other._arrayPtr[i];
     }
 
-    template<class T>
+    template<class T> requires std::is_default_constructible_v<T>
     HappyArray<T>::~HappyArray() {
         delete[] _arrayPtr;
     }
 
-    template<class T>
+    template<class T> requires std::is_default_constructible_v<T>
     std::size_t HappyArray<T>::size() const noexcept {
         return _nElements;
     }
 
-    template<class T>
+    template<class T> requires std::is_default_constructible_v<T>
     void HappyArray<T>::fill(const T &fillValue) noexcept {
         for (size_t i = 0; i < _nElements; i++)
             _arrayPtr[i] = fillValue;
     }
 
-    template<class T>
+    template<class T> requires std::is_default_constructible_v<T>
     T &HappyArray<T>::operator[](const size_t index) const {
         if ((index >= _nElements) || !_arrayPtr)
             throw std::out_of_range("");
@@ -81,7 +82,7 @@ namespace flat {
         return _arrayPtr[index];
     }
 
-    template<class T>
+    template<class T> requires std::is_default_constructible_v<T>
     HappyArray<T> &HappyArray<T>::operator=(const HappyArray<T> &other) {
         if (this != &other) {
             delete[] _arrayPtr;
