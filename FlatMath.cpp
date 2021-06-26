@@ -7,6 +7,12 @@ bool flat::isInBound(const IntegerCoordinate &coordinate, const CoordinateAndRec
            (coordinate.y < (coordinateAndRectangle.y + coordinateAndRectangle.height));
 }
 
+bool flat::bothCoordinatesAreWithinRadius(const IntegerCoordinate &a, const IntegerCoordinate &b, double radius) {
+    long double cx = a.x - b.x;
+    long double cy = a.y - b.y;
+    return ((cx * cx) + (cy * cy)) <= (radius * radius);
+}
+
 flat::IntegerCoordinate flat::makeUnit(const IntegerCoordinate &cord) {
     IntegerCoordinate result;
     if (cord.x != 0) {

@@ -44,6 +44,8 @@ namespace flat {
     // Returns true if the coordinate is within the provided CoordinateAndRectangle.
     bool isInBound(const IntegerCoordinate &coordinate, const CoordinateAndRectangle &coordinateAndRectangle);
 
+    bool bothCoordinatesAreWithinRadius(const IntegerCoordinate &a, const IntegerCoordinate &b, double radius);
+
     IntegerCoordinate makeUnit(const IntegerCoordinate &cord);
 
     bool cordIsUnidirectional(const IntegerCoordinate &cord);
@@ -62,20 +64,29 @@ namespace flat {
 
         while (currentIndex != lastIndex) {
             lastIndex = currentIndex;
+
+            if ((currentIndex - currentLowerBoundInc) == 1)
+                currentIndex++;
+            else if (((currentUpperBoundInc - currentIndex) == 1) && (currentIndex != 0))
+                currentIndex--;
+
             auto q = c[currentIndex] <=> d;
             // Another missed opportunity from C++20. Am I the only one that likes switch statements?
             if (q == std::strong_ordering::greater) {
-                currentUpperBoundInc = currentIndex;
+                currentUpperBoundInc = currentIndex - 1;
                 currentIndex = ((currentIndex - currentLowerBoundInc) / 2) + currentLowerBoundInc;
+                if (currentIndex > currentUpperBoundInc)
+                    currentIndex = currentUpperBoundInc;
             } else {
                 if (q == std::strong_ordering::less) {
-                    currentLowerBoundInc = currentIndex;
+                    currentLowerBoundInc = currentIndex + 1;
                     currentIndex = ((currentUpperBoundInc - currentIndex) / 2) + currentIndex;
+                    if (currentIndex < currentLowerBoundInc)
+                        currentIndex = currentLowerBoundInc;
                 } else {
                     return currentIndex;
                 }
             }
-
         }
 
         return BINSEARCH_NOT_FOUND;
