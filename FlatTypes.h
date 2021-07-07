@@ -50,6 +50,9 @@ namespace flat {
         int_fast32_t x, y;
         int_fast32_t width, height;
     };
+
+    // A shorthand for CoordinateAndRectangle.
+    typedef CoordinateAndRectangle CaR;
 }
 
 #endif //TILESETVIEWER_FLATTYPES_H
