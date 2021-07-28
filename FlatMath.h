@@ -50,6 +50,8 @@ namespace flat {
 
     bool cordIsUnidirectional(const IntegerCoordinate &cord);
 
+    char getFirstNonWhitespace(const std::string &str);
+
     const std::size_t BINSEARCH_NOT_FOUND = -1;
 
     template<class D, class C>

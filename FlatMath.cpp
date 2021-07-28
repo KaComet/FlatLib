@@ -43,3 +43,12 @@ bool flat::cordIsUnidirectional(const IntegerCoordinate &cord) {
 
     return false;
 }
+
+char flat::getFirstNonWhitespace(const std::string &str) {
+    for (auto const &c : str) {
+        if ((c != ' ') && (c != '\n') && (c != (char)0xA0)) //0xA0 is a non-breaking space
+            return c;
+    }
+
+    return '\0';
+}
