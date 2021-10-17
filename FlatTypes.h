@@ -18,6 +18,8 @@ namespace flat {
 
         static std::string toString(IntegerCoordinate position);
 
+        typedef int_fast32_t DATA_TYPE;
+
         int_fast32_t x, y;
     };
 
