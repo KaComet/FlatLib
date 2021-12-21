@@ -16,7 +16,7 @@ namespace flat {
     public:
         HappyArray();
 
-        HappyArray(std::initializer_list<T> &list);
+        HappyArray(std::initializer_list<T> list);
 
         explicit HappyArray(unsigned long int size);
 
@@ -44,11 +44,11 @@ namespace flat {
     }
 
     template<class T> requires std::is_default_constructible_v<T>
-    HappyArray<T>::HappyArray(std::initializer_list<T> &list) {
-        _nElements = list.size();
-        HappyArray(_nElements);
-        for (std::size_t i = 0; i < list.size(); i++)
-            _arrayPtr[i] = list[i];
+    HappyArray<T>::HappyArray(std::initializer_list<T> list) : HappyArray(list.size()) {
+        auto it = list.begin();
+        std::size_t i = 0;
+        for (const T& t : list)
+            _arrayPtr[i++] = t;
     }
 
     template<class T> requires std::is_default_constructible_v<T>
