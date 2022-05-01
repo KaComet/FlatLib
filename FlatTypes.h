@@ -49,6 +49,17 @@ namespace flat {
 
         static std::string toString(CoordinateAndRectangle rect);
 
+        // Returns true if the provided CoordinateAndRectangles overlap.
+        static bool overlaps(const CoordinateAndRectangle &a, const CoordinateAndRectangle &b) noexcept;
+
+        // Returns true if the CoordinateAndRectangle contains the point.
+        static bool containtsPoint(const CoordinateAndRectangle &a, const IntegerCoordinate &p) noexcept;
+
+        // Returns the area where two CoordinateAndRectangles overlap. Returns CoordinateAndRectangle(0,0,0,0)
+        //   if they don't overlap.
+        static CoordinateAndRectangle overlap(const CoordinateAndRectangle &a,
+                                              const CoordinateAndRectangle &b) noexcept;
+
         int_fast32_t x, y;
         int_fast32_t width, height;
     };

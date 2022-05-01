@@ -88,3 +88,32 @@ std::string flat::CoordinateAndRectangle::toString(flat::CoordinateAndRectangle 
                           std::to_string(rect.x) + ',' +
                           std::to_string(rect.y)) + ")}";
 }
+
+bool flat::CoordinateAndRectangle::overlaps(const flat::CoordinateAndRectangle &a,
+                                            const flat::CoordinateAndRectangle &b) noexcept {
+    if (a.x > (b.x + b.width) || (a.x + a.width) > b.x)
+        return false;
+    if (a.y < (b.y + b.height) || (a.y + a.height) < b.y)
+        return false;
+    return true;
+}
+
+bool flat::CoordinateAndRectangle::containtsPoint(const flat::CoordinateAndRectangle &a,
+                                                  const flat::IntegerCoordinate &p) noexcept {
+    return (a.x <= p.x) && (a.y <= p.y) && ((a.x + a.width) >= p.x) && ((a.y + a.height) >= p.y);
+}
+
+flat::CoordinateAndRectangle flat::CoordinateAndRectangle::overlap(const flat::CoordinateAndRectangle &a,
+                                                                   const flat::CoordinateAndRectangle &b) noexcept {
+    if (!overlaps(a, b))
+        flat::CoordinateAndRectangle(0, 0, 0, 0);
+    CoordinateAndRectangle result;
+    result.x = a.x > b.x ? a.x : b.x;
+    result.y = a.y > b.y ? a.y : b.y;
+    result.width = a.x + a.width < b.x + b.width ? a.x + a.width : b.x + b.width;
+    result.height = a.y + a.height < b.y + b.height ? a.y + a.height : b.y + b.height;
+    result.height -= result.x;
+    result.width -= result.y;
+
+    return result;
+}
